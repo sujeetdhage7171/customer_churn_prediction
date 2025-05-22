@@ -13,5 +13,5 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: "Echo things"
+      - name: Echo things
+        run: echo "This step just echoes a message."
