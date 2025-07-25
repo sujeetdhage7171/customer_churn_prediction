@@ -14,4 +14,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo things
-        run: echo "This step just echoes a message we have crated this message."
+        run: echo "Good to go"
