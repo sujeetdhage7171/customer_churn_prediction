@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 import joblib
+import os
 
 # Load data
 df = pd.read_csv('data/customer_data.csv')
@@ -15,6 +16,9 @@ y = df['churn']
 # Train model
 model = LogisticRegression()
 model.fit(X, y)
+
+# Ensure models folder exists
+os.makedirs('models', exist_ok=True)
 
 # Save model
 joblib.dump(model, 'models/model.pkl')
