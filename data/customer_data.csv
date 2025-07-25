@@ -1,0 +1,11 @@
+age,income,gender,subscription_length,churn
+25,50000,Male,12,0
+30,60000,Female,24,0
+22,40000,Male,6,1
+35,80000,Female,36,0
+28,45000,Female,10,1
+40,100000,Male,48,0
+33,65000,Female,18,0
+26,52000,Male,8,1
+45,120000,Female,60,0
+29,47000,Male,9,1
