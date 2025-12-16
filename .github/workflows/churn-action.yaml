@@ -1,11 +1,12 @@
-name: Build and Deploy Churn Model API
+name: Build and Push Churn Model API
 
 on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build-and-push:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -22,9 +23,20 @@ jobs:
         run: |
           python source/train.py
 
-      - name: Set up Docker
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker image
-        run: |
-          docker build -t your-dockerhub-user/churn-model-api:latest .
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: sujeet7111
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            sujeet7111/docker-demo:1.0.0
+            sujeet7111/docker-demo:latest
