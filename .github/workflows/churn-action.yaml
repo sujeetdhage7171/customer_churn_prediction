@@ -38,5 +38,5 @@ jobs:
           context: .
           push: true
           tags: |
-            sujeet7111/docker-demo:1.0.0
+            sujeet7111/docker-demo:1.0.1
             sujeet7111/docker-demo:latest
