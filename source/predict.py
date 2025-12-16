@@ -5,7 +5,16 @@ import pandas as pd
 
 app = FastAPI()
 
+# Load trained model
 model = joblib.load("models/model.pkl")
+
+# EXACT feature order used during training
+FEATURE_COLUMNS = [
+    "age",
+    "income",
+    "subscription_length",
+    "gender_Male",
+]
 
 class ChurnInput(BaseModel):
     age: int
@@ -19,14 +28,15 @@ def health():
 
 @app.post("/predict")
 def predict(data: ChurnInput):
-    # Convert input to DataFrame
-    df = pd.DataFrame([data.dict()])
+    # Build row exactly as training expected
+    row = {
+        "age": data.age,
+        "income": data.income,
+        "subscription_length": data.subscription_length,
+        "gender_Male": 1 if data.gender == "Male" else 0,
+    }
 
-    # Apply SAME encoding as training
-    df["gender_Male"] = df["gender"].apply(lambda x: 1 if x == "Male" else 0)
-
-    # Drop original categorical column
-    df = df.drop(columns=["gender"])
+    df = pd.DataFrame([row], columns=FEATURE_COLUMNS)
 
     prediction = model.predict(df)[0]
     return {"churn": int(prediction)}
